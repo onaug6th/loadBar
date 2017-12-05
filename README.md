@@ -1,0 +1,2 @@
+# loadingComponent
+a simple loadingComponent

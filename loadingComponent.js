@@ -65,8 +65,8 @@
     //  生命周期钩子事件
     LoadComponent.EVENTS = {
         'all': 'onAll',             //  默认执行
-        'start-load': 'startLoad',  //  开始加载
-        'end-load': 'endLoad'       //  结束加载
+        'start-load': 'startLoad',  //  开始请求
+        'end-load': 'endLoad'       //  结束请求
     };
 
     //  加载进度条原型链生成方法

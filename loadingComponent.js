@@ -40,8 +40,6 @@
         this.options = options;
         this.$el = $(el);
         this.$el_ = this.$el.clone();
-        this.timeoutId_ = 0;
-        this.timeoutFooter_ = 0;
         this.init();
     };
 
@@ -72,6 +70,7 @@
     //  加载进度条原型链生成方法
     LoadComponent.prototype.init = function () {
         this.initContainer();
+        this.$el.trigger($.Event("onPostBody"), args);
     };
 
     //  生成滚动条并追加到目标元素
@@ -87,12 +86,19 @@
      * @param {string} name 名称
      */
     LoadComponent.prototype.alert = function (name) {
-        alert(name + 'silly b');
+        alert(name ? name : "" + 'silly b');
     };
 
-    //  触发事件中间件
+    /**
+     * 触发事件中间件
+     * @param {*} name 事件参数名称
+     */
     LoadComponent.prototype.trigger = function (name) {
+        //  取出除事件名之后的参数
         var args = Array.prototype.slice.call(arguments, 1);
+        /**
+         * 从LoadComponent.EVENTS中取出对应的函数名执行
+         */
         this.options[LoadComponent.EVENTS[name]].apply(this.options, args);
         this.$el.trigger($.Event(name), args);
 
@@ -100,7 +106,7 @@
         this.$el.trigger($.Event('all'), [name, args]);
     };
 
-    //  允许在原型链调用的方法
+    //  允许在原型链调用的方法,保护方法
     var allowedMethods = [
         'alert'
     ];
@@ -109,12 +115,12 @@
         var value,
             args = Array.prototype.slice.call(arguments, 1);
 
-
         //  each遍历要生成的目标，可能是id单个或class多个
         this.each(function () {
             var $this = $(this),
-                //  合并配置
+                //  这里的data第一次插件实例化的时候不存在
                 data = $this.data('loadComponent'),
+                //  合并配置
                 options = $.extend({}, DEFAULTS, $this.data(), typeof option === 'object' && option);
 
             //  如果传入选项为字符串，说明调用方法
@@ -123,15 +129,15 @@
                 if ($.inArray(option, allowedMethods) < 0) {
                     throw new Error("Unknown method: " + option);
                 }
-
+                //  如果!data，说明$el目标还没有生成插件。返回
                 if (!data) {
                     return;
                 }
-
+                //  从实例化的data对象中取出方法，执行
                 value = data[option].apply(data, args);
             }
 
-            //  初始化
+            //  初始化，并将通过构造函数实例化后的对象存在当前$elDOM对象的data属性中。
             $this.data('loadComponent', (data = new LoadComponent(this, options)));
 
             //  监听开始请求结束

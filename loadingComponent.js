@@ -3,14 +3,14 @@
 
     var loadComponentCss = $("<style></style>")
         .append(`
-                #progress{
-                    position: fixed;
+                .loading-component{
+                    position: absolute;
                     top: 1px;
                     height:2px;
                     transition: opacity 500ms linear;
                     background:#b91f1f;
                 }
-                #progress span {
+                .loading-component span {
                     position:absolute;
                     height:2px;
                     -webkit-box-shadow:#b91f1f 1px 0 6px 1px;
@@ -32,8 +32,7 @@
                     }
                 }
                 `
-        )
-    loadComponentCss.insertAfter("body");
+        ).insertAfter("body");
 
     //  构造函数，LoadComponent
     var LoadComponent = function (el, options) {
@@ -70,13 +69,13 @@
     //  加载进度条原型链生成方法
     LoadComponent.prototype.init = function () {
         this.initContainer();
-        this.$el.trigger($.Event("onPostBody"), args);
+        this.$el.trigger($.Event("onPostBody"), this.options);
     };
 
     //  生成滚动条并追加到目标元素
     LoadComponent.prototype.initContainer = function () {
         this.$container = $([
-            `<div id="progress" style=background:${this.options.color};><span></span></div>`
+            `<div class="loading-component" style=background:${this.options.color};><span></span></div>`
         ].join(''));
         this.$el.append(this.$container);
     };
@@ -143,13 +142,13 @@
             //  监听开始请求结束
             $(document).ajaxStart(function () {
                 data.trigger('start-load');
-                $this.find("#progress").css("width", "0px").show().animate({ width: '80%' }, 300, function () {
+                data.$container.css("width", "0px").show().animate({ width: '80%' }, 300, function () {
 
                 });
             }).ajaxStop(function () {
                 data.trigger('end-load');
-                $this.find("#progress").animate({ width: '100%' }, 100, function () {
-                    $this.find("#progress").hide();
+                data.$container.animate({ width: '100%' }, 100, function () {
+                    data.$container.hide();
                 });
             });
         });

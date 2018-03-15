@@ -85,7 +85,7 @@
      * @param {string} name 名称
      */
     LoadComponent.prototype.alert = function (name) {
-        alert(name ? name : "" + 'silly b');
+        alert(name ? name + "silly b" : "" + 'silly b');
     };
 
     /**

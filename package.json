@@ -1,11 +1,11 @@
 {
   "name": "simple",
   "version": "1.0.0",
-  "description": "A simple webpack example",
+  "description": "loadingComponent jquery plugin",
   "main": "",
   "scripts": {
-    "dev": "webpack-serve webpack.config.js",
-    "build": "webpack-cli"
+    "ok": "webpack-serve webpack.config.js",
+    "super": "webpack-cli"
   },
   "author": "",
   "license": "ISC",

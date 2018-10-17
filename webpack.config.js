@@ -28,7 +28,7 @@ let plugins = [];
 /**
  * 初始化
  */
-(function init(){
+;(function init(){
 
     const logger = console.log;
 

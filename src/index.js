@@ -80,7 +80,8 @@
 
     //  允许在原型链调用的方法,保护方法
     var allowedMethods = [
-        "maPeople"
+        "maPeople",
+        "getOption"
     ];
 
     //  生命周期钩子事件，对应执行DEFAULTS中的回调函数
@@ -125,6 +126,13 @@
     LoadComponent.prototype.maPeople = function (name) {
         window["alert"](name ? name + "silly b" : "" + 'silly b');
     };
+
+    /**
+     * 获取内部配置对象
+     */
+    LoadComponent.prototype.getOption = function () {
+        return this.options;
+    }
 
     /**
      * 触发事件中间件

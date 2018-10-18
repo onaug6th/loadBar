@@ -80,7 +80,7 @@
 
     //  允许在原型链调用的方法,保护方法
     var allowedMethods = [
-        'alert'
+        "maPeople"
     ];
 
     //  生命周期钩子事件，对应执行DEFAULTS中的回调函数

@@ -65,7 +65,7 @@
     var DEFAULTS = {
         color: 'red',
         onAll: function (name, args) {
-            console.info("生命周期", name, "被触发了");
+            console.info("生命周期事件", name, "被触发了");
         },
         startLoad: function () {
 
@@ -81,7 +81,8 @@
     //  允许在原型链调用的方法,保护方法
     var allowedMethods = [
         "maPeople",
-        "getOption"
+        "getOption",
+        "setColor"
     ];
 
     //  生命周期钩子事件，对应执行DEFAULTS中的回调函数
@@ -89,7 +90,7 @@
         'all': 'onAll',             //  默认执行
         'start-load': 'startLoad',  //  开始请求
         'end-load': 'endLoad',      //  结束请求
-        'destory': 'destory'
+        'destroy': 'destroy'        //  摧毁组件
     };
 
     //  加载进度条原型链生成方法
@@ -110,7 +111,7 @@
     LoadComponent.prototype.initContainer = function () {
 
         this.$container = $([
-            '<div class="loading-component" style="background:' + this.options.color + '">\
+            '<div class="loading-component">\
                 <span></span>\
             </div>'
         ].join(''));
@@ -135,6 +136,19 @@
     }
 
     /**
+     * 设置颜色
+     * @param { string } color 颜色
+     */
+    LoadComponent.prototype.setColor = function (color) {
+        this.options.color = color;
+    }
+
+    LoadComponent.prototype.destroy = function(){
+        this.$container.remove();
+        this.$el.removeData("loadComponent");
+    }
+
+    /**
      * 触发事件中间件
      * @param {*} name 事件参数名称
      */
@@ -153,7 +167,7 @@
 
         //  这里使用jquery trigger是为了触发，用户使用了 $("xxx").on("all" , function(){}); 这样的事件监听
         this.$el.trigger($.Event('all'), [name, args]);
-        
+
     };
 
     /**
@@ -162,8 +176,10 @@
      */
     $.fn.loadComponent = function (option) {
 
-        //  取出除第一个参数之后的全部参数
-        var args = Array.prototype.slice.call(arguments, 1);
+        //  预先声明value变量，用于后面函数结束返回
+        var value,
+            //  取出除第一个参数之后的全部参数
+            args = Array.prototype.slice.call(arguments, 1);
 
         //  each遍历要生成的目标，可能是id单个或class多个
         this.each(function () {
@@ -188,28 +204,35 @@
                 }
 
                 //  从实例化的data对象中取出方法，执行
-                return data[option].apply(data, args);
+                value = data[option].apply(data, args);
 
             }
 
             //  初始化，并将通过构造函数实例化后的对象存在当前$elDOM对象的data属性中。
-            $this.data('loadComponent', (data = new LoadComponent(this, options)));
+            !data && $this.data('loadComponent', (data = new LoadComponent(this, options))) && (
 
-            //  监听开始请求结束
-            $(document).ajaxStart(function () {
+                //  监听开始请求结束
+                $(document).ajaxStart(function () {
 
-                data.trigger('start-load');
-                data.$container.css("width", "0px").show().animate({ width: '80%' }, 300);
+                    data.trigger('start-load');
+                    data.$container.css({
+                            "width" : "0px",
+                            "background" : data.options.color
+                        }).show().animate({ width: '80%' }, 300);
 
-            }).ajaxStop(function () {
+                }).ajaxStop(function () {
 
-                data.trigger('end-load');
-                data.$container.animate({ width: '100%' }, 100, function () {
-                    data.$container.hide();
-                });
+                    data.trigger('end-load');
+                    data.$container.animate({ width: '100%' }, 100, function () {
+                        data.$container.hide();
+                    });
 
-            });
+                })
+            );
+
         });
+
+        return typeof value === 'undefined' ? this : value;
     }
 
 })($);

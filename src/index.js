@@ -82,7 +82,8 @@
     var allowedMethods = [
         "maPeople",
         "getOption",
-        "setColor"
+        "setColor",
+        "destroy"
     ];
 
     //  生命周期钩子事件，对应执行DEFAULTS中的回调函数
@@ -214,6 +215,10 @@
                 //  监听开始请求结束
                 $(document).ajaxStart(function () {
 
+                    if(!$this.data('loadComponent')){
+                        return false;
+                    }
+
                     data.trigger('start-load');
                     data.$container.css({
                             "width" : "0px",
@@ -221,6 +226,10 @@
                         }).show().animate({ width: '80%' }, 300);
 
                 }).ajaxStop(function () {
+
+                    if(!$this.data('loadComponent')){
+                        return false;
+                    }
 
                     data.trigger('end-load');
                     data.$container.animate({ width: '100%' }, 100, function () {

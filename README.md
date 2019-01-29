@@ -4,6 +4,8 @@
 
 简体中文 | [English](./README-EN.md)
 
+[演示文档](https://onaug6th.github.io/loadBar/)
+
 ## 启动
 ```
 npm run dev

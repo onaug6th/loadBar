@@ -4,6 +4,8 @@ A funny, powerful and strange loadBar. show you http request progress.
 
 English | [简体中文](./README.md)
 
+[docs](https://onaug6th.github.io/loadBar/)
+
 ## Install
 ```
 npm run dev

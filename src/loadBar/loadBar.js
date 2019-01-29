@@ -136,7 +136,7 @@
             "height": options.height
         };
         if (options.img) {
-            var $img = $("img");
+            var $img = $("<img />");
             $img.attr("src", options.img);
             this.$bar.append($img);
             cssOpt["background"] = "";

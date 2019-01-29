@@ -1,6 +1,6 @@
 # loadBar
 
-a funny, powerful and strange loadBar.
+A funny, powerful and strange loadBar. show you http request progress.
 
 English | [简体中文](./README.md)
 

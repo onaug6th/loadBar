@@ -1,7 +1,7 @@
 {
   "name": "@onaug6th/load-bar",
   "author": "onaug6th",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a funny, powerful and strange jquery plugins",
   "main": "dist/loadBar.min.js",
   "repository": "https://github.com/onaug6th/loadBar",
@@ -12,7 +12,7 @@
   "keywords": [
     "jquery",
     "loadbar",
-    "plugins"
+    "jquery-plugins"
   ],
   "license": "MIT",
   "devDependencies": {

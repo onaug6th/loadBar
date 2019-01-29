@@ -1,10 +1,12 @@
 # loadBar
 
-A funny, powerful and strange loadBar. show you http request progress.
+[![npm (scoped)](https://img.shields.io/npm/v/@onaug6th/load-bar.svg)](https://www.npmjs.com/package/@onaug6th/load-bar)
+
+A funny, powerful and beautiful loadBar. Monitoring request status and show you http request progress.
 
 English | [简体中文](./README.md)
 
-[docs](https://onaug6th.github.io/loadBar/)
+[演示文档/Docs](https://onaug6th.github.io/loadBar/)
 
 ## Install
 ```
@@ -17,6 +19,12 @@ npm run build
 ```
 
 ## Usage
+
+Using npm:
+
+```bash
+npm i @onaug6th/load-bar
+```
 
 Using script:
 
@@ -35,14 +43,18 @@ var options = {...}
 $("#other").loadBar(options);
 ```
 
-## loadBar config
+## options config
 | Name | Detail | Type | Default |
 | - | - | - | - |
 | background | loadBar backgrond color | `String` | `#29d` |
 | img | use image? (image will replace background) | `String` |  |
 | height | loadBar height | `Number, String` | `2px` |
+| all | every event will trigger | `Function` | `noop` |
+| startLoad | loadBar before show trigger | `Function` | `noop` |
+| endLoad | loadBar after hide trigger | `Function` | `noop` |
+| mounted | loadBar on mounted trigger | `Function` | `noop` |
 
-## loadBar event
+## Event
 | Name | Detail | Parameter |
 | - | - | - |
 | all | every event will trigger | `Function` |
@@ -50,11 +62,13 @@ $("#other").loadBar(options);
 | endLoad | loadBar after hide trigger | `Function` |
 | mounted | load on mounted trigger | `Function` |
 
-## loadBar methods
+## Methods
 | Name | Detail | Parameter |
 | - | - | - |
-| setOpt | set loadBar options | `attr:String|Object, value:String` |
-| getOption | get loadBar options | |
+| start | loadBar start | |
+| end | loadBar end | |
+| setOpt | set loadBar options | `attr: String Object, value:String` |
+| getOpt | get loadBar options | |
 | destroy | destroy loadBar | |
 | sayName | greet some body | `name:string` |
 

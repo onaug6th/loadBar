@@ -40,9 +40,11 @@
 
     //  允许调用的方法
     var allowedMethods = [
+        "start",
+        "end",
         "sayName",
         "setOpt",
-        "getOption",
+        "getOpt",
         "destroy"
     ];
 
@@ -77,6 +79,20 @@
     };
 
     /**
+     * 进度条内置方法（“开始”）
+     */
+    LoadBar.prototype.start = function () {
+        this.ajaxStart();
+    }
+
+    /**
+     * 进度条内置方法（“结束”）
+     */
+    LoadBar.prototype.end = function () {
+        this.ajaxStop();
+    }
+
+    /**
      * 进度条内置方法("打招呼")
      * @param {string} name 名称
      */
@@ -85,14 +101,14 @@
     };
 
     /**
-     * 获取内部配置对象
+     * 进度条内置方法（“获取内部配置对象”）
      */
-    LoadBar.prototype.getOption = function () {
+    LoadBar.prototype.getOpt = function () {
         return this.options;
     }
 
     /**
-     * 设置内部属性
+     * 进度条内置方法（“设置内部属性”）
      * @param {string | object} attr 属性名称
      * @param {string} value 属性值
      */
@@ -104,6 +120,9 @@
         }
     }
 
+    /**
+     * 进度条内置方法（“摧毁”）
+     */
     LoadBar.prototype.destroy = function () {
         this.$container.remove();
         this.$el.removeData("loadBar");
@@ -129,8 +148,9 @@
     };
 
     LoadBar.prototype.ajaxStart = function () {
-        this.trigger('start-load');
-        var options = this.options;
+        var that = this;
+        that.trigger('start-load');
+        var options = that.options;
         var cssOpt = {
             "width": "0px",
             "height": options.height
@@ -138,23 +158,53 @@
         if (options.img) {
             var $img = $("<img />");
             $img.attr("src", options.img);
-            this.$bar.append($img);
+            that.$bar.append($img);
             cssOpt["background"] = "";
             cssOpt["box-shadow"] = "";
         } else {
-            this.$bar.find("img").remove();
+            that.$bar.find("img").remove();
             cssOpt["background"] = options.background;
             cssOpt["box-shadow"] = "0 0 10px" + options.background + ",0 0 5px" + options.background;
         }
         //  设置进度条各状态
-        this.$bar.css(cssOpt).show().animate({ width: '80%' }, 300);
+        that.$bar.css(cssOpt).show().animate({ width: '80%' }, {
+            duration: 3000,
+            complete: function () {
+                var parentW = that.$bar.parent().width();
+                var w = that.$bar.width();
+                if (w !== parentW) {
+                    that.continue(w, parentW);
+                }
+            }
+        });
+    }
+
+    /**
+     * @param {number} w 当前进度宽度
+     * @param {number} parentW 父级元素宽度
+     */
+    LoadBar.prototype.continue = function (w, parentW) {
+        var that = this;
+        var percent = w / parentW;
+        var surplus = 1 - percent;
+        var width = percent + (surplus / 4);
+        //  设置进度条各状态
+        that.$bar.animate({ width: String(width * 100) + "%" }, {
+            duration: 3000,
+            complete: function () {
+                var w = that.$bar.width();
+                if (w !== parentW) {
+                    that.continue(w, parentW);
+                }
+            }
+        });
     }
 
     LoadBar.prototype.ajaxStop = function () {
         const that = this;
         that.trigger('end-load');
-        that.$bar.animate({ width: '100%' }, {
-            duration: 1000,
+        that.$bar.stop().animate({ width: '100%' }, {
+            duration: 0,
             complete: function () {
                 that.$bar.fadeOut();
             }

@@ -204,7 +204,7 @@
         const that = this;
         that.trigger('end-load');
         that.$bar.stop().animate({ width: '100%' }, {
-            duration: 0,
+            duration: 1500,
             complete: function () {
                 that.$bar.fadeOut();
             }

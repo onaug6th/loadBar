@@ -50,7 +50,7 @@ $("#other").loadBar(options);
 
 ## loadBar methods
 | Name | Detail | Parameter |
-| - | - | - | - |
+| - | - | - |
 | setOpt | set loadBar options | `attr:String|Object, value:String` |
 | getOption | get loadBar options | |
 | destroy | destroy loadBar | |

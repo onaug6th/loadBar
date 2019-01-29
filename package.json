@@ -1,13 +1,19 @@
 {
-  "name": "@onaug6th/loadBar",
+  "name": "@onaug6th/load-bar",
   "author": "onaug6th",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a funny, powerful and strange jquery plugins",
   "main": "dist/loadBar.min.js",
+  "repository": "https://github.com/onaug6th/loadBar",
   "scripts": {
     "dev": "webpack-serve webpack.config.js --open",
     "build": "webpack-cli"
   },
+  "keywords": [
+    "jquery",
+    "loadbar",
+    "plugins"
+  ],
   "license": "MIT",
   "devDependencies": {
     "jquery": "^1.11.1",

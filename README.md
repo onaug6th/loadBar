@@ -50,7 +50,7 @@ $("#other").loadBar(options);
 
 ## loadBar 方法
 | 名称 | 说明 | 参数 |
-| - | - | - | - |
+| - | - | - |
 | setOpt | 设置进度条配置属性 | `attr:String|Object, value:String` |
 | getOption | 获取配置属性 | |
 | destroy | 摧毁进度条 | |

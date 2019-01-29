@@ -1,0 +1,15 @@
+.load-bar{
+    pointer-events: none;
+}
+.load-bar div.bar {
+    position: absolute;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+    height: 2px;
+}
+.load-bar div.bar img{
+    height: 100%;
+    width: 200px;
+    float: right;
+}

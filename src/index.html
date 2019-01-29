@@ -1,9 +1,147 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
-  </head>
-  <script src="assets/jquery/js/jquery.js"></script>
-  <body>
-  </body>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>loadBar example</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+<script src="assets/jquery.js"></script>
+<style>
+    section.head{
+        margin: 40px 0px;
+    }
+    section.head .tail{
+        color: #666;
+    }
+
+    blockquote{
+        box-shadow: 0 8px 12px rgba(60,90,120,.1);
+    }
+
+    blockquote footer{
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <div class="container">
+        <section class="row head text-center">
+            <h1>loadBar<span class="tail">.js</span></h1>
+            <h4>
+                一个有趣，<del>强大</del>，奇怪的进度条插件。直观的展示您的Http请求进度。
+            </h4>
+        </section>
+        <section class="row">
+            <blockquote class="col-sm-4 col-sm-offset-4 block">
+                <p>
+                    <pre>$("body").loadBar();</pre>
+                    <footer>对body元素使用进度条方法，即可在页面顶部产生一个进度条。</footer>
+                    <div class="text-center">
+                        <button class="btn btn-success" onclick="setBaseBar()">尝试一下！</button>
+                    </div>
+                </p>
+            </blockquote>
+            <blockquote class="col-sm-4 col-sm-offset-4 block">
+                <p>
+                    <pre>$(".block").loadBar();</pre>
+                    <footer>对其他元素使用进度条方法，也能在该元素顶部产生一个进度条。</footer>
+                    <div class="text-center">
+                        <button class="btn btn-success" onclick="setMoreBar()" title="我们不止一个进度条">尝试一下！</button>
+                    </div>
+                </p>
+            </blockquote>
+            <blockquote class="col-sm-4 col-sm-offset-4 block">
+                <p>
+                    <pre>
+var opt = { 
+    background: "#d9534f",
+    height: 200
+};
+$(other).loadBar(opt);</pre>
+                    <footer>根据您的个人喜好，定制进度条的样式。</footer>
+                    <div class="text-center">
+                        <button class="btn btn-success" onclick="setCustomBar()" title="来个大家伙！">尝试一下！</button>
+                    </div>
+                </p>
+            </blockquote>
+            <blockquote class="col-sm-4 col-sm-offset-4 block">
+                <p>
+                    <pre>$("body").loadBar("setOpt", "img", path);</pre>
+                    <footer>修改你的进度条，使他更加动感！</footer>
+                    <div class="text-center">
+                        <button class="btn btn-success" onclick="setBarImg()">尝试一下！</button>
+                    </div>
+                </p>
+            </blockquote>
+        </section>
+        <section class="text-center">
+            <h4>
+                have a good day!
+            </h4>
+            <h4>
+                <a href="https://github.com/onaug6th/loadBar" target="_blank" title="github">
+                    <button class="btn btn-default">
+                        <img class="emoji" alt="github" height="20" width="20" src="https://assets-cdn.github.com/images/icons/emoji/octocat.png">
+                        <span class="relative">star</span>
+                    </button>
+                </a>
+            </h4>
+        </section>
+    </div>
+</body>
+<script>
+    $(function(){
+        $("body").loadBar();
+    });
+
+    function sendHttpAjax(){
+        $.ajax({});
+    }
+
+    function reset(){
+        $("body, .block").loadBar("destroy");
+    }
+
+    function setBaseBar(){
+        reset();
+        var opt = { 
+            background: "#29d",
+            height: 2,
+            img: null
+        };
+        $("body").loadBar(opt);
+        sendHttpAjax();
+    }
+
+    function setMoreBar(){
+        reset();
+        $(".block").loadBar();
+        sendHttpAjax();
+    }
+
+    function setCustomBar(){
+        reset();
+        var opt = { 
+            background: "#d9534f",
+            height: 200,
+            img: null
+        };
+        $("body").loadBar(opt);
+        sendHttpAjax();
+    }
+
+    function setBarImg(){
+        reset();
+        var opt = { 
+            img: "http://wx2.sinaimg.cn/mw690/9311b2dagy1fxk3xwv3gij20fz0dft90.jpg",
+            height: 200
+        };
+        $("body").loadBar(opt);
+        sendHttpAjax();
+    }
+
+</script>
+
 </html>

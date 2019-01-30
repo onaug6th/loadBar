@@ -46,6 +46,7 @@ module.exports = {
     entry: ['./src/loadBar/loadBar.js', './src/loadBar/loadBar.css'],
     output: {
         path: resolve('dist'),
+        libraryTarget: 'umd',
         filename: 'loadBar.min.js'
     },
     module: {

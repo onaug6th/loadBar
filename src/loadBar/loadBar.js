@@ -82,14 +82,14 @@
      * 进度条内置方法（“开始”）
      */
     LoadBar.prototype.start = function () {
-        this.ajaxStart();
+        this.startLoad();
     }
 
     /**
      * 进度条内置方法（“结束”）
      */
     LoadBar.prototype.end = function () {
-        this.ajaxStop();
+        this.endLoad();
     }
 
     /**
@@ -147,27 +147,25 @@
         this.$el.trigger($.Event('all'), [name, args]);
     };
 
-    LoadBar.prototype.ajaxStart = function () {
+    LoadBar.prototype.startLoad = function () {
         var that = this;
         that.trigger('start-load');
         var options = that.options;
         var cssOpt = {
             "width": "0px",
-            "height": options.height
+            "height": options.height,
+            "background": options.background,
+            "box-shadow": "0 0 10px" + options.background + ",0 0 5px" + options.background
         };
         if (options.img) {
             var $img = $("<img />");
-            $img.attr("src", options.img);
+            $img.attr("src", options.img).css("width", options.height);
             that.$bar.append($img);
-            cssOpt["background"] = "";
-            cssOpt["box-shadow"] = "";
         } else {
             that.$bar.find("img").remove();
-            cssOpt["background"] = options.background;
-            cssOpt["box-shadow"] = "0 0 10px" + options.background + ",0 0 5px" + options.background;
         }
         //  设置进度条各状态
-        that.$bar.css(cssOpt).show().animate({ width: '80%' }, {
+        that.$bar.css(cssOpt).show().stop().animate({ width: '80%' }, {
             duration: 3000,
             complete: function () {
                 var parentW = that.$bar.parent().width();
@@ -200,11 +198,11 @@
         });
     }
 
-    LoadBar.prototype.ajaxStop = function () {
+    LoadBar.prototype.endLoad = function () {
         const that = this;
         that.trigger('end-load');
         that.$bar.stop().animate({ width: '100%' }, {
-            duration: 1500,
+            duration: 1000,
             complete: function () {
                 that.$bar.fadeOut();
             }
@@ -262,14 +260,14 @@
 
             $(".load-bar").each(function () {
                 var loadBar = $(this).parent().data()["loadBar"];
-                loadBar && (loadBar.ajaxStart.call(loadBar));
+                loadBar && (loadBar.startLoad.call(loadBar));
             });
 
         }).ajaxStop(function () {
 
             $(".load-bar").each(function () {
                 var loadBar = $(this).parent().data()["loadBar"];
-                loadBar && (loadBar.ajaxStop.call(loadBar));
+                loadBar && (loadBar.endLoad.call(loadBar));
             });
 
         });

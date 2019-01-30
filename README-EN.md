@@ -47,7 +47,7 @@ $("#other").loadBar(options);
 | Name | Detail | Type | Default |
 | - | - | - | - |
 | background | loadBar backgrond color | `String` | `#29d` |
-| img | use image? (image will replace background) | `String` |  |
+| img | use image? | `String` |  |
 | height | loadBar height | `Number, String` | `2px` |
 | all | every event will trigger | `Function` | `noop` |
 | startLoad | loadBar before show trigger | `Function` | `noop` |

@@ -47,7 +47,7 @@ $("#other").loadBar(options);
 | 名称 | 说明 | 类型 | 默认值 |
 | - | - | - | - |
 | background | 进度条背景色 | `String` | `#29d` |
-| img | 是否使用图片（注意，若图片存在，会替换掉背景色） | `String` |  |
+| img | 是否使用图片 | `String` |  |
 | height | 进度条高度 | `Number, String` | `2px` |
 | all | 任何事件都会触发 | `Function` | `noop` |
 | startLoad | 进度条出现前触发 | `Function` | `noop` |

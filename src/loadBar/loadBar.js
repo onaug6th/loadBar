@@ -157,12 +157,11 @@
             "background": options.background,
             "box-shadow": "0 0 10px" + options.background + ",0 0 5px" + options.background
         };
+        that.$bar.find("img").remove();
         if (options.img) {
             var $img = $("<img />");
             $img.attr("src", options.img).css("width", options.height);
             that.$bar.append($img);
-        } else {
-            that.$bar.find("img").remove();
         }
         //  设置进度条各状态
         that.$bar.css(cssOpt).show().stop().animate({ width: '80%' }, {

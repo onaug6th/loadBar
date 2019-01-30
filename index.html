@@ -32,7 +32,7 @@
         <section class="row head text-center">
             <h1>loadBar<span class="tail">.js</span></h1>
             <h4>
-                一个有趣，<del>强大</del>，奇怪的进度条插件。监听http请求的状态，并且直观的展示Http请求进度。
+                一个有趣，<del>强大</del>，漂亮的进度条插件。监听http请求的状态，并且直观的展示Http请求进度。
             </h4>
         </section>
         <section class="row">
@@ -40,7 +40,7 @@
                 <pre>$("body").loadBar();</pre>
                 <footer>对body元素使用进度条方法，在请求发起时，会自动出现。</footer>
                 <div class="text-center">
-                    <button class="btn btn-success" onclick="setBaseBar()" title="发起请求！">发起请求！</button>
+                    <button class="btn btn-success" onclick="setSimpleBar()" title="发起请求！">发起请求！</button>
                 </div>
             </blockquote>
             <blockquote class="col-sm-4 col-sm-offset-4 block">
@@ -100,19 +100,23 @@ $(other).loadBar(opt);</pre>
     </div>
 <script type="text/javascript" src="assets/jquery.min.js"></script><script type="text/javascript" src="loadBar.min.js"></script></body>
 <script>
+
     $(function () {
         $("body").loadBar();
     });
+
     //  发起http请求
     function sendHttpAjax() {
         $.ajax({});
     }
+
     //  重置案例进度条
     function reset() {
         $("body, .block").loadBar("destroy");
     }
+
     //  设置简单进度条
-    function setBaseBar() {
+    function setSimpleBar() {
         reset();
         var opt = {
             background: "#29d",
@@ -122,20 +126,26 @@ $(other).loadBar(opt);</pre>
         $("body").loadBar(opt);
         sendHttpAjax();
     }
+
     //  开始
-    function startBar(){
+    function startBar() {
+        !$("body").data("loadBar") && $("body").data();
         $("body").loadBar("start");
     }
+
     //  结束
-    function endBar(){
+    function endBar() {
+        !$("body").data("loadBar") && $("body").data();
         $("body").loadBar("end");
     }
+
     //  设置更多进度条
     function setMoreBar() {
         reset();
         $(".block").loadBar();
         sendHttpAjax();
     }
+
     //  设置自定义进度条
     function setCustomBar() {
         reset();
@@ -147,12 +157,13 @@ $(other).loadBar(opt);</pre>
         $("body").loadBar(opt);
         sendHttpAjax();
     }
+
     //  设置图片进度条
     function setBarImg() {
         reset();
         var opt = {
-            img: "http://wx2.sinaimg.cn/mw690/9311b2dagy1fxk3xwv3gij20fz0dft90.jpg",
-            height: 200
+            height: 200,
+            img: "http://wx2.sinaimg.cn/mw690/9311b2dagy1fxk3xwv3gij20fz0dft90.jpg"
         };
         $("body").loadBar(opt);
         sendHttpAjax();

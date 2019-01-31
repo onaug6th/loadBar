@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>loadBar example</title>
+    <meta name="description" content="一个漂亮，强大的进度条插件。默认监听http请求的状态，并且直观的展示Http请求进度。或者根据你的需求来定制使用。">
+    <title>loadBar.js</title>
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
-<script src="assets/jquery.js"></script>
+<script src="assets/jquery.min.js"></script>
 <style>
     section.head {
         margin: 40px 0px;
@@ -32,7 +33,7 @@
         <section class="row head text-center">
             <h1>loadBar<span class="tail">.js</span></h1>
             <h4>
-                一个有趣，<del>强大</del>，漂亮的进度条插件。监听http请求的状态，并且直观的展示Http请求进度。
+                一个漂亮，<del>强大</del>的进度条插件。默认监听http请求的状态，并且直观的展示Http请求进度。或者根据你的需求来定制使用。
             </h4>
         </section>
         <section class="row">
@@ -44,17 +45,23 @@
                 </div>
             </blockquote>
             <blockquote class="col-sm-4 col-sm-offset-4 block">
+                <pre>$("body").loadBar("setOpt", "displayOnRequest", false);</pre>
+                <p>或</p>
+                <pre>$("body").loadBar({displayOnRequest: false});</pre>
+                <footer>对进度条进行设置，在请求发起时，不自动出现。</footer>
+            </blockquote>
+            <blockquote class="col-sm-4 col-sm-offset-4 block">
                 <pre>$("body").loadBar("start");</pre>
                 <footer>也可以对已生成实例的目标使用<code>start</code>方法，自主控制进度条开始。</footer>
                 <div class="text-center">
-                    <button class="btn btn-success" onclick="startBar()" title="发起请求！">尝试一下！</button>
+                    <button class="btn btn-success" onclick="startBar()" title="开启！">尝试一下！</button>
                 </div>
             </blockquote>
             <blockquote class="col-sm-4 col-sm-offset-4 block">
                 <pre>$("body").loadBar("end");</pre>
                 <footer>对已生成实例的目标使用<code>end</code>方法，控制进度条结束。</footer>
                 <div class="text-center">
-                    <button class="btn btn-success" onclick="endBar()" title="发起请求！">尝试一下！</button>
+                    <button class="btn btn-success" onclick="endBar()" title="结束！">尝试一下！</button>
                 </div>
             </blockquote>
             <blockquote class="col-sm-4 col-sm-offset-4 block">
@@ -71,13 +78,13 @@ var opt = {
     height: 200
 };
 $(other).loadBar(opt);</pre>
-                <footer>根据您的个人喜好，定制进度条的样式。</footer>
+                <footer>根据你的个人喜好，定制进度条的样式。</footer>
                 <div class="text-center">
                     <button class="btn btn-success" onclick="setCustomBar()" title="来个大家伙！">尝试一下！</button>
                 </div>
             </blockquote>
             <blockquote class="col-sm-4 col-sm-offset-4 block">
-                <pre>$("body").loadBar("setOpt", "img", path);</pre>
+                <pre>$("body").loadBar("setOpt", "img", yourPath);</pre>
                 <footer>修改你的进度条，使他更加动感！</footer>
                 <div class="text-center">
                     <button class="btn btn-success" onclick="setBarImg()">尝试一下！</button>
@@ -85,15 +92,17 @@ $(other).loadBar(opt);</pre>
             </blockquote>
         </section>
         <section class="text-center">
-            <h4>
-                have a good day!
+            <h4 class="form-group">
+                have a nice day!
             </h4>
             <h4>
-                <a href="https://github.com/onaug6th/loadBar" target="_blank" title="github">
-                    <button class="btn btn-default">
-                        <img class="emoji" alt="github" height="20" width="20" src="https://assets-cdn.github.com/images/icons/emoji/octocat.png">
-                        <span class="relative">star</span>
-                    </button>
+                <a class="nav-link p-2" href="https://github.com/onaug6th/loadBar" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg style="width: 20px; height: 20px; position: relative; bottom: -4px;" class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 499.36" focusable="false" role="img"><title>GitHub</title><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"></path></svg>
+                    loadBar
+                </a>
+                <a href="http://www.onaug6th.com/loadBar" target="_blank" title="my site">
+                    <img class="emoji" height="20" width="20" src="https://avatars3.githubusercontent.com/u/24285577?s=40&v=4">
+                    <span class="relative">my site</span>
                 </a>
             </h4>
         </section>

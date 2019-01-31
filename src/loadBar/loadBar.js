@@ -26,6 +26,8 @@
 
     //  默认配置
     var DEFAULTS = {
+        //  在请求中展示
+        displayOnRequest: true,
         //  默认背景色
         background: '#29d',
         //  图片
@@ -102,21 +104,22 @@
 
     /**
      * 进度条内置方法（“获取内部配置对象”）
+     * @param {string} attrName 属性名称
      */
-    LoadBar.prototype.getOpt = function () {
-        return this.options;
+    LoadBar.prototype.getOpt = function (attrName) {
+        return attrName ? this.options[attrName] : this.options;
     }
 
     /**
      * 进度条内置方法（“设置内部属性”）
-     * @param {string | object} attr 属性名称
+     * @param {string | object} attrName 属性名称
      * @param {string} value 属性值
      */
-    LoadBar.prototype.setOpt = function (attr, value) {
-        if (typeof attr == "object") {
-            this.options = $.extend({}, this.options, attr);
+    LoadBar.prototype.setOpt = function (attrName, value) {
+        if (typeof attrName == "object") {
+            this.options = $.extend({}, this.options, attrName);
         } else {
-            this.options[attr] = value;
+            this.options[attrName] = value;
         }
     }
 
@@ -139,7 +142,7 @@
         //  从事件集合中取出对应的回调函数进行执行
         this.options[LoadBar.EVENTS[name]].apply(this.options, args);
 
-        this.$el.trigger($.Event(name), args);
+        this.$el.trigger($.Event(LoadBar.EVENTS[name]), args);
 
         //  默认执行回调函数
         this.options.all(name, args);
@@ -259,14 +262,14 @@
 
             $(".load-bar").each(function () {
                 var loadBar = $(this).parent().data()["loadBar"];
-                loadBar && (loadBar.startLoad.call(loadBar));
+                loadBar && loadBar.options.displayOnRequest && (loadBar.startLoad.call(loadBar));
             });
 
         }).ajaxStop(function () {
 
             $(".load-bar").each(function () {
                 var loadBar = $(this).parent().data()["loadBar"];
-                loadBar && (loadBar.endLoad.call(loadBar));
+                loadBar && loadBar.options.displayOnRequest && (loadBar.endLoad.call(loadBar));
             });
 
         });

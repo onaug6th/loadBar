@@ -1,8 +1,12 @@
 # loadBar
 
-A funny, powerful and strange loadBar. show you http request progress.
+[![npm (scoped)](https://img.shields.io/npm/v/@onaug6th/load-bar.svg)](https://www.npmjs.com/package/@onaug6th/load-bar)
+
+A beautiful, ~~powerful~~ loadBar. Monitoring request status and show you http request progress.
 
 English | [简体中文](./README.md)
+
+[演示文档/Docs](https://onaug6th.github.io/loadBar/)
 
 ## Install
 ```
@@ -15,6 +19,12 @@ npm run build
 ```
 
 ## Usage
+
+Using npm:
+
+```bash
+npm i @onaug6th/load-bar
+```
 
 Using script:
 
@@ -33,14 +43,34 @@ var options = {...}
 $("#other").loadBar(options);
 ```
 
-## loadBar config
+## options config
+```js
+var opt = {
+    displayOnRequest: false,
+    height: 200,
+    endLoad: function(){
+        //  do sth
+    }
+}
+$("body").loadBar(opt);
+```
 | Name | Detail | Type | Default |
 | - | - | - | - |
+| displayOnRequest | loadBar display on request | `Boolean` | `true` |
 | background | loadBar backgrond color | `String` | `#29d` |
-| img | use image? (image will replace background) | `String` |  |
+| img | use image? | `String` |  |
 | height | loadBar height | `Number, String` | `2px` |
+| all | every event will trigger | `Function` | `noop` |
+| startLoad | loadBar before show trigger | `Function` | `noop` |
+| endLoad | loadBar after hide trigger | `Function` | `noop` |
+| mounted | loadBar on mounted trigger | `Function` | `noop` |
 
-## loadBar event
+## Event
+```js
+$("body").on("startLoad", function(){
+    //  do sth
+})
+```
 | Name | Detail | Parameter |
 | - | - | - |
 | all | every event will trigger | `Function` |
@@ -48,11 +78,20 @@ $("#other").loadBar(options);
 | endLoad | loadBar after hide trigger | `Function` |
 | mounted | load on mounted trigger | `Function` |
 
-## loadBar methods
+## Methods
+```js
+$("body").loadBar("start");
+//  or
+$("body").loadBar("getOpt", "img");
+//  or
+$("body").loadBar("setOpt", "img", yourPath);
+```
 | Name | Detail | Parameter |
 | - | - | - |
-| setOpt | set loadBar options | `attr:String|Object, value:String` |
-| getOption | get loadBar options | |
+| start | loadBar start | |
+| end | loadBar end | |
+| setOpt | set loadBar options | `attrName: String Object, value:String` |
+| getOpt | get loadBar options | `attrName: String` |
 | destroy | destroy loadBar | |
 | sayName | greet some body | `name:string` |
 
